@@ -362,4 +362,4 @@ $RECYCLE.BIN/
 
 static/
 
-*.pickle
+*.db
