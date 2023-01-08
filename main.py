@@ -1,7 +1,7 @@
 import time
 
 from database_interaction.DatabaseController import DatabaseController
-from parcers.LootFarmParser import LootFarmParser
+from parsers.LootFarmParser import LootFarmParser
 from notification_providers.TelegramNotificationProvider import TelegramNotificationProvider
 from notification_providers.NotificationTextFormatter import NotificationTextFormatter
 

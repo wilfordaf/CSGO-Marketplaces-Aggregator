@@ -3,7 +3,7 @@ import json
 
 from fake_user_agent import user_agent
 from entities.Item import Item
-from parcers.IParser import IParser
+from parsers.IParser import IParser
 
 
 class LootFarmParser(IParser):
