@@ -11,6 +11,9 @@ class Item:
     weapon: str
     skin: str
 
+    def __str__(self):
+        return f"{self.weapon} | {self.skin} ({self.exterior} - {self.float_value}) {self.price}$"
+
     def get_sha256_value(self) -> str:
         hasher = sha256()
         hasher.update(str(self.price).encode())
