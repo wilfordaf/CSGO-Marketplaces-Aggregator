@@ -6,9 +6,6 @@ from notification_providers.INotificationProvider import INotificationProvider
 
 
 class TelegramNotificationProvider(INotificationProvider):
-    MAX_MESSAGE_LENGTH = 4096
-    LINE_LENGTH = 50
-
     def __init__(self):
         load_dotenv()
         self._bot = telebot.TeleBot(token=environ.get("TOKEN"))

@@ -10,11 +10,11 @@ def main():
     lootfarm_parser = LootFarmParser()
     database_controller = DatabaseController()
     telegram_notification_provider = TelegramNotificationProvider()
-    item = "Glock-18"
+    items = ["AK-47", "AWP"]
     user_id = "123456789"
 
     while True:
-        result = lootfarm_parser.parse_response(lootfarm_parser.request_market(), item)
+        result = lootfarm_parser.parse_response(lootfarm_parser.request_market(), items)
         new_items, sold_items = database_controller.get_item_difference(user_id, result)
         database_controller.update_user(user_id, result)
         text = NotificationTextFormatter.format_sold_new_message(new_items, sold_items)

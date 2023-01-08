@@ -24,12 +24,11 @@ class DatabaseUserTrackedItems:
         self._connection.commit()
 
     def get_all_by_user_id(self, user_id: str) -> list:
-        self._cursor.execute("SELECT * FROM user_tracked_items WHERE user_id=?", (user_id,))
+        self._cursor.execute("SELECT item_hash FROM user_tracked_items WHERE user_id=?", (user_id,))
         return self._cursor.fetchall()
 
     def get_by_user_id_and_item(self, user_id: str, item: Item) -> tuple:
         item_hash = item.get_sha256_value()
-
         self._cursor.execute("SELECT * FROM user_tracked_items WHERE user_id=? AND item_hash=?", (user_id, item_hash))
         return self._cursor.fetchone()
 

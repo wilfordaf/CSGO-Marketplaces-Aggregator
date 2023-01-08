@@ -16,8 +16,21 @@ class LootFarmParser(IParser):
 
         return response.text
 
-    def parse_response(self, response: str, weapon: str) -> list[Item]:
-        return self._parse_blocks_to_items(self._parce_to_blocks(response, weapon))
+    def parse_response(self, response: str, weapons: list[str]) -> list[Item]:
+        return self._parse_blocks_to_items(self._parce_to_blocks(response, weapons))
+
+    @staticmethod
+    def _parce_to_blocks(response: str, weapons: list[str]) -> list[dict]:
+        data = json.loads(response)
+        item_blocks = []
+        for item_block in data["result"].values():
+            for weapon in weapons:
+                if weapon not in item_block["n"]:
+                    continue
+
+                item_blocks.append(item_block)
+
+        return item_blocks
 
     @classmethod
     def _parse_blocks_to_items(cls, item_blocks: list[dict]) -> list[Item]:
@@ -44,15 +57,3 @@ class LootFarmParser(IParser):
                 items.append(item_data)
 
         return items
-
-    @staticmethod
-    def _parce_to_blocks(response: str, weapon: str) -> list[dict]:
-        data = json.loads(response)
-        item_blocks = []
-        for item_block in data["result"].values():
-            if weapon not in item_block["n"]:
-                continue
-
-            item_blocks.append(item_block)
-
-        return item_blocks

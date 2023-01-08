@@ -15,7 +15,7 @@ class DatabaseController:
     def get_item_difference(self, user_id: str, items: list[Item]) -> (list[Item], list[Item]):
         self._add_new_items(items)
         old_items = self._user_tracked_items.get_all_by_user_id(user_id)
-        old_item_hashes = [item[1] for item in old_items]
+        old_item_hashes = [item[0] for item in old_items]
         new_item_hashes = [item.get_sha256_value() for item in items]
 
         sold_items = self._get_sold_items(old_item_hashes, new_item_hashes)
