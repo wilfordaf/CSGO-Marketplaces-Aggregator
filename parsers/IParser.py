@@ -10,5 +10,5 @@ class IParser(ABC):
         """Request market data from website"""
 
     @abstractmethod
-    def parse_response(self, response: str, weapon: str) -> list[Item]:
+    def parse_response(self, response: str, weapons: list[str]) -> list[Item]:
         """Parse response to Item objects"""
