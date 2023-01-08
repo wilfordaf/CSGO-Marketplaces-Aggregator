@@ -23,27 +23,27 @@ class LootFarmParser(IParser):
     def _parse_blocks_to_items(cls, item_blocks: list[dict]) -> list[Item]:
         items = []
 
-        for item in item_blocks:
-            if "|" in item["n"]:
-                weapon, skin = item["n"].split(" | ")
+        for item_block in item_blocks:
+            if "|" in item_block["n"]:
+                weapon, skin = item_block["n"].split(" | ")
             else:
-                weapon = item["n"]
+                weapon = item_block["n"]
                 skin = "Vanilla"
 
-            exterior = item["e"]
+            exterior = item_block["e"]
 
-            price = item["pst"] if "pst" in item else item["p"]
+            price = item_block["pst"] if "pst" in item_block else item_block["p"]
             price = round(price * cls.PRICE_RATIO, 2)
 
-            item_values = sum(item["u"].values(), [])
-            for unit in item_values:
+            item = sum(item_block["u"].values(), [])
+            for unit in item:
                 float_value, pattern_seed = unit["f"].split(":")
                 float_value = round(float(float_value) / 10 ** 5, 3)
 
                 item_data = Item(price, exterior, float_value, pattern_seed, weapon, skin)
                 items.append(item_data)
 
-            return items
+        return items
 
     @staticmethod
     def _parce_to_blocks(response: str, weapon: str) -> list[dict]:
